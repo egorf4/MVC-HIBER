@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Users</title>
+</head>
+<body>
+<h2>All Users</h2>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Operations</th>
+    </tr>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.surname}">Surname</td>
+        <td th:text="${user.age}">Age</td>
+        <td>
+
+            <form th:action="@{/updateInfo}" method="get">
+                <input type="hidden" name="userId" th:value="${user.id}" />
+                <button type="submit">Update</button>
+            </form>
+
+            <form th:action="@{/deleteInfo}" method="get">
+                <input type="hidden" name="userId" th:value="${user.id}" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+
+<form th:action="@{/addNewUser}" method="get">
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>
