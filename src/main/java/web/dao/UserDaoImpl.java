@@ -18,12 +18,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        if (user.getId() == 0) {
             em.persist(user);
-        } else {
-            em.merge(user);
-        }
+    }
 
+    public void updateUser(User user) {
+        em.merge(user);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package web.config;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,8 +27,14 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class AppConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
+
+    private final Environment env;
+
     @Autowired
-    private Environment env;
+    public AppConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -37,10 +45,10 @@ public class AppConfig {
         String password = env.getProperty("db.password");
 
         // Debugging outputs
-        System.out.println("DB Driver: " + driver);
-        System.out.println("DB URL: " + url);
-        System.out.println("DB Username: " + username);
-        System.out.println("DB Password: " + password);
+        logger.info("DB Driver: " + driver);
+        logger.info("DB URL: " + url);
+        logger.info("DB Username: " + username);
+        logger.info("DB Password: " + password);
 
         // Null check
         if (driver == null || url == null || username == null || password == null) {
@@ -64,9 +72,9 @@ public class AppConfig {
         String hbm2ddl = env.getProperty("hibernate.hbm2ddl.auto");
 
         // Debugging outputs
-        System.out.println("Hibernate Dialect: " + dialect);
-        System.out.println("Hibernate Show SQL: " + showSql);
-        System.out.println("Hibernate HBM2DDL Auto: " + hbm2ddl);
+      logger.info("Hibernate Dialect: " + dialect);
+        logger.info("Hibernate Show SQL: " + showSql);
+        logger.info("Hibernate HBM2DDL Auto: " + hbm2ddl);
 
         // Null check
         if (dialect == null || showSql == null || hbm2ddl == null) {

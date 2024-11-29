@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/hello")
 public class HelloController {
 
 	@GetMapping(value = "/")
